@@ -1,63 +1,76 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomSpawner : MonoBehaviour
+public class RoomSpawner : MonoBehaviour 
 {
     public int openingDirection;
-    //1 --> ¾Æ·¡ÂÊ ¹® ÇÊ¿ä
-    //2 --> À§ÂÊ ¹® ÇÊ¿ä
-    //3 --> ¿ŞÂÊ ¹® ÇÊ¿ä
-    //4 --> ¿À¸¥ÂÊ ¹® ÇÊ¿ä
+    /*  1 = ì•„ë˜ìª½ ë¬¸
+        2 = ìœ„ìª½ ë¬¸
+        3 = ì™¼ìª½ ë¬¸
+        4 = ì˜¤ë¥¸ìª½ ë¬¸ */
 
-    private RoomTemplate template;
-    private int rand;
-    private bool spawned = false;
+    private RoomTemplates templates;            //
+    public bool spawned = false;                //false ì¼ ë•Œ ë°© ìƒì„±
+    public float waitTime = 4f;
 
-    private void Start()
+    void Start()
     {
-        template = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplate>();
-        Invoke("spawn", 0.1f);
+        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        Invoke("Spawn", 0.1f);
+        Invoke("SpawnClosedRoom", waitTime);
     }
 
-    void spawn()
+    void Spawn()
     {
-        Debug.Log("!");
-        if (spawned == false)
+        if (spawned) return;
+
+        GameObject[] roomArray = null;
+
+        switch (openingDirection)
         {
-            if (openingDirection == 1)
-            {
-                //¹Ù´ÚÂÊ ¹® »ı¼º
-                rand = Random.Range(0, template.bottomRooms.Length);
-                Instantiate(template.bottomRooms[rand], transform.position, template.bottomRooms[rand].transform.rotation);
-            }
-            else if (openingDirection == 2)
-            {
-                //À§ÂÊ ¹® »ı¼º
-                rand = Random.Range(0, template.topRooms.Length);
-                Instantiate(template.topRooms[rand], transform.position, template.topRooms[rand].transform.rotation);
-            }
-            else if (openingDirection == 3)
-            {
-                //¿ŞÂÊ ¹® »ı¼º
-                rand = Random.Range(0, template.leftRooms.Length);
-                Instantiate(template.leftRooms[rand], transform.position, template.leftRooms[rand].transform.rotation);
-            }
-            else if (openingDirection == 4)
-            {
-                //¿À¸¥ÂÊ ¹® »ı¼º
-                rand = Random.Range(0, template.rightRooms.Length);
-                Instantiate(template.rightRooms[rand], transform.position, template.rightRooms[rand].transform.rotation);
-            }
+            case 1:
+                roomArray = templates.topRooms;             //ìœ„ìª½ ë¬¸ ìƒì„±
+                break;
+            case 2:
+                roomArray = templates.bottomRooms;          //ì•„ë˜ìª½ ë¬¸ ìƒì„±
+                break;
+            case 3:
+                roomArray = templates.rightRooms;           //ì˜¤ë¥¸ìª½ ë¬¸ ìƒì„±
+                break;
+            case 4:
+                roomArray = templates.leftRooms;            //ì™¼ìª½ ë¬¸ ìƒì„±
+                break;
+        }
+
+        if (roomArray != null && roomArray.Length > 0)
+        {
+            int rand = Random.Range(0, roomArray.Length);
+            Instantiate(roomArray[rand], transform.position, Quaternion.identity);
             spawned = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void SpawnClosedRoom()
     {
-        if (other.CompareTag("SpawnPoint") && other.GetComponent<RoomSpawner>().spawned == true)
+        if (!spawned)
         {
-            Destroy(gameObject);
+            Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+            spawned = true;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("SpawnPoint"))
+        {
+            RoomSpawner otherSpawner = other.GetComponent<RoomSpawner>();
+            if (otherSpawner != null && !otherSpawner.spawned && !spawned)
+            {
+                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+            spawned = true;
         }
     }
 }
