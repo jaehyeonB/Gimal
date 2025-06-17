@@ -5,11 +5,12 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public float moveSpeed = 10.0f;
-    
+
+
     void Start()
     {
+        
         Invoke("Loading", 5.0f);
     }
 
@@ -24,10 +25,21 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
         }
+
     }
 
     void Loading()
     {
         transform.position = new Vector3(0, 0, 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        /*
+        if(collision.gameObject.CompareTag("RoomCheck"))
+        {
+            
+        }
+        */
     }
 }

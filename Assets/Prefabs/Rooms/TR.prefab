@@ -3459,9 +3459,6 @@ Transform:
   - {fileID: 6422171210446842411}
   - {fileID: 6099955506218733318}
   - {fileID: 5728092700789653542}
-  - {fileID: 2582153597106797467}
-  - {fileID: 1681605511376427531}
-  - {fileID: 6301930307379188478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &186806339088952982
@@ -3539,7 +3536,7 @@ GameObject:
   - component: {fileID: 1456799313265556194}
   m_Layer: 0
   m_Name: RoomCheck
-  m_TagString: Untagged
+  m_TagString: RoomCheck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3556,7 +3553,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2582153597106797467}
+  - {fileID: 1681605511376427531}
+  - {fileID: 6301930307379188478}
   m_Father: {fileID: 1657647441316868858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7485697128158491124
@@ -3627,7 +3627,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1657647441316868858}
+    m_TransformParent: {fileID: 5728092700789653542}
     m_Modifications:
     - target: {fileID: 5625114496925042163, guid: 443f635da1c9dfd4e94c8095ca06a8f9,
         type: 3}
@@ -3707,7 +3707,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1657647441316868858}
+    m_TransformParent: {fileID: 5728092700789653542}
     m_Modifications:
     - target: {fileID: 5527386794076998598, guid: 4b8ac5fe2e56d5d469aca19c9be4e3ae,
         type: 3}
@@ -3792,7 +3792,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1657647441316868858}
+    m_TransformParent: {fileID: 5728092700789653542}
     m_Modifications:
     - target: {fileID: 7675780087845355693, guid: 5887babbc215bd147abff67b0ffb5ff8,
         type: 3}

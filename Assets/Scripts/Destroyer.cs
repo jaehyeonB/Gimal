@@ -7,8 +7,11 @@ public class Destroyer : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Destroy(other.gameObject);
-		Invoke("EndDestroy", 4f);
+		if (other.CompareTag("Rooms"))
+		{
+			Destroy(other.gameObject);
+            Invoke("EndDestroy", 4f);
+        }
 	}
 
 	void EndDestroy()
