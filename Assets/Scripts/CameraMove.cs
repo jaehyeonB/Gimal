@@ -8,6 +8,7 @@ public class CameraMove : MonoBehaviour
 
     void Start()
     {
+        
         Invoke("moveStart", 5f);
     }
 
@@ -32,6 +33,6 @@ public class CameraMove : MonoBehaviour
 
     void moveStart()
     {
-        transform.position = new Vector3(0, 0, -10);
+        transform.position = new Vector3(0, 0, -5);
     }
 }
