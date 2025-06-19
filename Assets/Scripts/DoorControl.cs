@@ -29,7 +29,7 @@ public class DoorControl : MonoBehaviour
         if(traveled == true && inCombat == false)
         {
             
-            Invoke("RoomCleared", 2f);  //È®ÀÎ¿ë Invoke , ³ªÁß¿¡ ±×³É ¿©µû ¹® ÄÚµå ³Ö±â
+            Invoke("RoomCleared", 2f);  //È®ï¿½Î¿ï¿½ Invoke , ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Úµï¿½ ï¿½Ö±ï¿½
 
         }
     }
@@ -40,7 +40,7 @@ public class DoorControl : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player") && traveled == false)
         {
-            Debug.Log("Ãæµ¹");
+            
             Invoke("Dungeon", 0.1f);
         }
         /*
@@ -59,7 +59,7 @@ public class DoorControl : MonoBehaviour
         doorL.SetActive (true);
         doorR.SetActive (true);
         inCombat = true;
-        Debug.Log("¹® ¼ÒÈ¯!");
+        
 
         
 
@@ -68,8 +68,7 @@ public class DoorControl : MonoBehaviour
 
     void SummonMonsters()
     {
-        Debug.Log("¸ó½ºÅÍ ½ºÆù!");
-        //´ëÃæ ¸ó½ºÅÍ ¼ÒÈ¯ÇÏ´Â ½ºÅ©¸³Æ®
+        
         traveled = true;
         inCombat = false;
     }
@@ -80,6 +79,6 @@ public class DoorControl : MonoBehaviour
         doorB.SetActive(false);
         doorL.SetActive(false);
         doorR.SetActive(false);
-        Debug.Log("Å¬¸®¾î");
+        
     }
 }

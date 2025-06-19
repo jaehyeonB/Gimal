@@ -20,6 +20,9 @@ public class BlockedRoom : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("ÀÌ ¹æÀº ¸·ÇôÀÖ´Ù..");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("ì´ ë°©ì€ ë§‰í˜€ ìˆìŠµë‹ˆë‹¤...");
+        }
     }
 }
