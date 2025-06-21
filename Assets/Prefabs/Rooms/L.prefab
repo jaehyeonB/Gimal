@@ -3734,6 +3734,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traveled: 0
+  inCombat: 0
+  activeMob: 3
+  maxMob: 10
   doorT: {fileID: 3940389897327852655}
   doorB: {fileID: 3940389897327852655}
   doorL: {fileID: 8250609426669162217}
@@ -3754,7 +3757,7 @@ PrefabInstance:
     - target: {fileID: 5527386794076998598, guid: 240a038e0e3700041af30a22f62b2a77,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6894572408104220030, guid: 240a038e0e3700041af30a22f62b2a77,
         type: 3}

@@ -94,6 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traveled: 0
+  inCombat: 0
+  activeMob: 3
+  maxMob: 10
   doorT: {fileID: 6667153200160471685}
   doorB: {fileID: 5830001295955885895}
   doorL: {fileID: 8405196688023853360}
@@ -3772,7 +3775,7 @@ PrefabInstance:
     - target: {fileID: 7716566558103231792, guid: 5887babbc215bd147abff67b0ffb5ff8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3857,7 +3860,7 @@ PrefabInstance:
     - target: {fileID: 7716566558103231792, guid: 2ff32711b40a71049b1dd3fb77038086,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
