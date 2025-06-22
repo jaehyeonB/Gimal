@@ -101,6 +101,7 @@ MonoBehaviour:
   doorB: {fileID: 1872212412314537802}
   doorL: {fileID: 8405196688023853360}
   doorR: {fileID: 8405196688023853360}
+  doorBAnim: {fileID: 0}
 --- !u!1 &2186198118284196577
 GameObject:
   m_ObjectHideFlags: 0

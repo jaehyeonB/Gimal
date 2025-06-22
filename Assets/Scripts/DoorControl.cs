@@ -15,23 +15,17 @@ public class DoorControl : MonoBehaviour
     public GameObject doorL;
     public GameObject doorR;
 
-    GameObject DoorAni;
-
+    GameObject mobSpawn;
 
     void Start()
     {
-        
+        mobSpawn = GameObject.Find("mobSpawnPoint");        
 
         doorT.GetComponent<BoxCollider2D>().enabled = false;        //대충 문 콜라이더 꺼주는 코드 라는 뜻.
         doorB.GetComponent<BoxCollider2D>().enabled = false;
         doorL.GetComponent<BoxCollider2D>().enabled = false;
         doorR.GetComponent<BoxCollider2D>().enabled = false;
-        /*
-        doorT.SetActive(false);
-        doorB.SetActive(false);
-        doorL.SetActive(false);
-        doorR.SetActive(false);
-        */
+
     }
 
     void Update()
@@ -70,39 +64,30 @@ public class DoorControl : MonoBehaviour
         doorL.GetComponent<BoxCollider2D>().enabled = true;
         doorR.GetComponent<BoxCollider2D>().enabled = true;
 
-        /*
-        doorT.SetActive (true);
-        doorB.SetActive (true);
-        doorL.SetActive (true);
-        doorR.SetActive (true);
-        */
         inCombat = true;
 
         
-        
+
         SummonMonsters();
     }
 
     void SummonMonsters()
     {
-        
+        mobSpawn.GetComponent<MobSpawner>().mobSpawnStart();
         traveled = true;
         inCombat = false;
+        
     }
 
     void RoomCleared()
     {
         
+
         doorT.GetComponent<BoxCollider2D>().enabled = false;
         doorB.GetComponent<BoxCollider2D>().enabled = false;
         doorL.GetComponent<BoxCollider2D>().enabled = false;
         doorR.GetComponent<BoxCollider2D>().enabled = false;
-        /*
-        doorT.SetActive(false);
-        doorB.SetActive(false);
-        doorL.SetActive(false);
-        doorR.SetActive(false);
-        */
 
+        
     }
 }

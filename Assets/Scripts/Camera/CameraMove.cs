@@ -27,7 +27,6 @@ public class CameraMove : MonoBehaviour
 
     public void RoomMoved(Transform target)
     {
-        Debug.Log("정상작동!");
         targetPos = target;
     }
 

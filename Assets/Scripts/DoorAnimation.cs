@@ -20,11 +20,12 @@ public class DoorAnimation : MonoBehaviour
 
     public void openDoor()
     {
-
+        Debug.Log("¿€µø!");
+        ani.SetBool("IsOpen", true);
     }
 
     public void closeDoor()
     {
-
+        ani.SetBool("IsOpen", false);
     }
 }
