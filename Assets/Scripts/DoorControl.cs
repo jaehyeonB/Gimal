@@ -15,9 +15,14 @@ public class DoorControl : MonoBehaviour
     public GameObject doorL;
     public GameObject doorR;
 
+    GameObject DoorAni;
+
+
     void Start()
     {
-        doorT.GetComponent<BoxCollider2D>().enabled = false;
+        
+
+        doorT.GetComponent<BoxCollider2D>().enabled = false;        //대충 문 콜라이더 꺼주는 코드 라는 뜻.
         doorB.GetComponent<BoxCollider2D>().enabled = false;
         doorL.GetComponent<BoxCollider2D>().enabled = false;
         doorR.GetComponent<BoxCollider2D>().enabled = false;
@@ -64,6 +69,7 @@ public class DoorControl : MonoBehaviour
         doorB.GetComponent<BoxCollider2D>().enabled = true;
         doorL.GetComponent<BoxCollider2D>().enabled = true;
         doorR.GetComponent<BoxCollider2D>().enabled = true;
+
         /*
         doorT.SetActive (true);
         doorB.SetActive (true);
@@ -71,10 +77,9 @@ public class DoorControl : MonoBehaviour
         doorR.SetActive (true);
         */
         inCombat = true;
-        
 
         
-
+        
         SummonMonsters();
     }
 

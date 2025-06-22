@@ -7,25 +7,31 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 10.0f;
 
+    Vector2 movement = new Vector2();
+    Rigidbody2D rb;
+
+
 
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+
         Invoke("Loading", 5.0f);
     }
 
     void Update()
     {
 
-        if(Input.GetAxisRaw("Horizontal") > 0 || Input.GetAxisRaw("Horizontal") < 0)
-        {
-            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
-        }
-        if (Input.GetAxisRaw("Vertical") > 0 || Input.GetAxisRaw("Vertical") < 0)
-        {
-            transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
-        }
+    }
 
+    private void FixedUpdate()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        movement.Normalize();
+
+        rb.velocity = movement * moveSpeed;
     }
 
     void Loading()
