@@ -4,28 +4,35 @@ using UnityEngine;
 
 public class DoorAnimation : MonoBehaviour
 {
+    public static DoorAnimation Instance;
     public Animator ani;
 
 
     void Start()
     {
-        ani = GetComponent<Animator>();
+        Instance = this;
+        ani.SetBool("isopen", true);
     }
 
     void Update()
     {
         
-       
     }
 
     public void openDoor()
     {
-        Debug.Log("�۵�!");
-        ani.SetBool("IsOpen", true);
+        ani.SetBool("isopen", true);
     }
 
     public void closeDoor()
     {
-        ani.SetBool("IsOpen", false);
+
+        Debug.Log("작동!");
+        ani.SetBool("isopen", false);
+         Debug.Log("작동완료!");
+
+
+     
+
     }
 }
