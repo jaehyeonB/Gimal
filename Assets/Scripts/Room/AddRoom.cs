@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AddRoom : MonoBehaviour {
+
     void OnTriggerEnter2D(Collider2D other)
     {
         // 두 RoomSpawner가 겹칠 경우 하나만 살아남도록

@@ -9,6 +9,8 @@ TagManager:
   - Door
   - RoomCheck
   - Mob
+  - BossRoom
+  - BossRoomPointer
   layers:
   - Default
   - TransparentFX

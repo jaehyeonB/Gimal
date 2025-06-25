@@ -16,20 +16,32 @@ public class RoomSpawner : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // ① RoomTemplates.Instance 가 준비될 때까지 한 프레임씩 대기
         while (RoomTemplates.Instance == null)
             yield return null;
 
         templates = RoomTemplates.Instance;
+        Vector2Int pos = Vector2Int.RoundToInt(transform.position);
+        RoomTemplates.Instance.occupiedPositions.Add(pos);
+        Debug.Log($"RoomSpawner 위치 기록됨: {pos}");
 
-        // ② 정상 동작
         Invoke(nameof(Spawn), 0.1f);
         Invoke(nameof(SpawnClosedRoom), waitTime);
+    }
+
+    private void Awake()
+    {
+        Destroy(gameObject, 4.25f);
     }
 
     void Spawn()
     {
         if (spawned) return;
+
+        Vector2Int pos = Vector2Int.RoundToInt(transform.position);
+        templates.occupiedPositions.Add(pos);
+
+        templates.RegisterExit(pos, openingDirection);   //출구 기록
+        spawned = true;
 
         GameObject[] roomArray = null;
 
@@ -54,7 +66,10 @@ public class RoomSpawner : MonoBehaviour
             int rand = Random.Range(0, roomArray.Length);
             Instantiate(roomArray[rand], transform.position, Quaternion.identity);
             spawned = true;
+
+            RoomTemplates.Instance.occupiedPositions.Add(Vector2Int.RoundToInt(transform.position));
         }
+
     }
 
     void SpawnClosedRoom()
