@@ -469,12 +469,13 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 1
   attackPoint: {fileID: 1425476663}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 268435456
   attackRate: 2
   maxHealth: 5
   currentHealth: 0
+  offsetTop: {x: 0, y: 1}
+  offsetBottom: {x: 0, y: -1}
+  offsetLeft: {x: -1, y: 0}
+  offsetRight: {x: 1, y: 0}
 --- !u!95 &735090973
 Animator:
   serializedVersion: 5
