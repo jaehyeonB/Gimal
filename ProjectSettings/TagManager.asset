@@ -8,6 +8,7 @@ TagManager:
   - Rooms
   - Door
   - RoomCheck
+  - Mob
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Enemy
   - 
   - 
   - 

@@ -14,11 +14,17 @@ public class RoomSpawner : MonoBehaviour
     public bool spawned = false;                //false 일 때 방 생성
     public float waitTime = 4f;
 
-    void Start()
+    private IEnumerator Start()
     {
-        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-        Invoke("Spawn", 0.1f);
-        Invoke("SpawnClosedRoom", waitTime);
+        // ① RoomTemplates.Instance 가 준비될 때까지 한 프레임씩 대기
+        while (RoomTemplates.Instance == null)
+            yield return null;
+
+        templates = RoomTemplates.Instance;
+
+        // ② 정상 동작
+        Invoke(nameof(Spawn), 0.1f);
+        Invoke(nameof(SpawnClosedRoom), waitTime);
     }
 
     void Spawn()

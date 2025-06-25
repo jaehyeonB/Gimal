@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
 {
+    public static RoomTemplates Instance { get; private set; }
+
+    private void Awake()
+    {
+        //방생성이 갑작히 안돼서 GPT 가 준 해결책 (연구 필요)
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
     public GameObject[] bottomRooms;
     public GameObject[] topRooms;
     public GameObject[] leftRooms;
