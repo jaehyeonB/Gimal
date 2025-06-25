@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,12 @@ public class UtilityRoom : MonoBehaviour
 {
     public bool traveled = false;
     public int ran;
+
+    public int roomNumber = 0;
+
+    public GameObject[] itemObject;
+
+
 
     void Start()
     {
@@ -28,24 +35,29 @@ public class UtilityRoom : MonoBehaviour
 
             if (ran == 1)
             {
-                Debug.Log("코인룸");
+                Debug.Log("아이템 룸");
+                roomNumber = 1;         //방 상태 지정
+                ItemDrop();
+
             }
 
-            if (ran == 2)
+            else if (ran == 2)
             {
                 Debug.Log("상점");
             }
 
-            if (ran == 3)
+            else if (ran == 3)
             {
                 Debug.Log("빈방");
             }
         }
     }
 
-    void coinDrop()
+    void ItemDrop()
     {
-        //대충 돈 스폰시키는 코드
-        //Random.Range(1, 3);
+        if (roomNumber == 1)
+        {
+            
+        }
     }
 }
