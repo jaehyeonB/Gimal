@@ -12,6 +12,11 @@ public class MobMove : MonoBehaviour
     public int maxHealth = 3;
     public int currentHealth = 3;
 
+    [Header("³Ë¹é")]
+    public float knockbackForce = 20f;      // ÇÑ¹ø¿¡ ¹Ð¸®´Â Èû
+    public float knockbackTime = 0.5f;   // ¹Ð¸° µÚ ¸ØÃçÀÖ´Â ½Ã°£
+    public bool isKnockback;
+
     Rigidbody2D rb;
     //Animator animator;
 
@@ -27,7 +32,7 @@ public class MobMove : MonoBehaviour
 
     void Update()
     {
-        if(player == null) 
+        if(player == null || isKnockback) 
             return;
 
         Vector2 dir = (player.position - transform.position).normalized;
@@ -40,10 +45,27 @@ public class MobMove : MonoBehaviour
         currentHealth -= damage;
         //if (animator != null) animator.SetTrigger("Hit");
 
+        Vector2 attackerPos = new();
+
+        Vector2 knockDir = (transform.position - (Vector3)attackerPos).normalized;
+        StartCoroutine(Knockback(knockDir));
+
         if (currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    private IEnumerator Knockback(Vector2 dir)
+    {
+        isKnockback = true;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(knockbackTime);
+
+        rb.velocity = Vector2.zero;   // ¸ØÃã (°ü¼º Á¦°Å)
+        isKnockback = false;
     }
 
     private void Die()

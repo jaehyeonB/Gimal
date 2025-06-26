@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class MobSpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] mobPrefabs;            //¸÷µé ÇÁ¸®ÆÕ
+    [SerializeField]
+    private GameObject bossPrefabs;
 
     [SerializeField]
     private Transform[] spawnPoints;            //¸÷µéÀÌ ½ºÆùÇÒ À§Ä¡
@@ -26,6 +29,7 @@ public class MobSpawner : MonoBehaviour
 
     public void mobSpawnStart()
     {
+        
         spawned.Clear();
 
         if (spawnPoints == null || spawnPoints.Length == 0)
@@ -45,5 +49,23 @@ public class MobSpawner : MonoBehaviour
             spawned.Add(mob);
             Debug.Log("¸÷ ¼ÒÈ¯ µÊ");
         }
+    }
+
+    public void SummonBoss()
+    {
+        spawned.Clear();
+
+        spawnPoints = null;
+        if (spawnPoints == null)
+        {
+            spawnPoints = new[]
+            { transform };
+        }
+
+        Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject prefab = mobPrefabs[Random.Range(0, mobPrefabs.Length)];
+
+        GameObject Boss = Instantiate(prefab, point.position, Quaternion.identity, transform);
+        spawned.Add(Boss);
     }
 }

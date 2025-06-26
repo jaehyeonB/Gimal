@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +20,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("플레이어 체력")]
     public int maxHealth = 5;
     public int currentHealth = 0;
+    public bool isInvincible = false;
+
+    public GameObject heart1;
+    public GameObject heart2;
+    public GameObject heart3;
+    public GameObject heart4;
+    public GameObject heart5;
 
     //attackPoint 위치 조정용
     public Vector2 offsetTop = new(0f, 0.7f);
@@ -31,12 +38,14 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement = new Vector2();           //내가 이걸 왜 적어놨더라?
     Rigidbody2D rb;
     Animator animator;
+    SpriteRenderer spriteRenderer;
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = rb.GetComponent<Animator>();
+        spriteRenderer = rb.GetComponent<SpriteRenderer>();
 
         enemyLayers = LayerMask.GetMask("Enemy");
         currentHealth = maxHealth;
@@ -47,14 +56,32 @@ public class PlayerMovement : MonoBehaviour
     {
         //이동 코드
         movement.x = Input.GetAxisRaw("Horizontal");
+        animator.SetBool("Run",true);
         movement.y = Input.GetAxisRaw("Vertical");
+        animator.SetBool("Run",true);
+
         movement.Normalize();
+
+        if(movement.x == 0 && movement.y == 0)
+        {
+            animator.SetBool("Run", false);
+        }
+
+        if(movement.x > 0)
+        {
+            spriteRenderer.flipX= true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
 
         if(movement.sqrMagnitude > 0.001f)
         {
             if(Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
             {
                 lastLookDir = new Vector2(Mathf.Sign(movement.x), 0);
+                
             }
             else
             {
@@ -67,6 +94,23 @@ public class PlayerMovement : MonoBehaviour
         {
             Attack();
             nextAttackTime = Time.time + 1f / attackRate;
+        }
+
+        if(currentHealth == 4)
+        {
+            heart5.gameObject.SetActive(false);
+        }
+        else if(currentHealth == 3)
+        {
+            heart4.gameObject.SetActive(false);
+        }
+        else if(currentHealth == 2)
+        {
+            heart3.gameObject.SetActive(false);
+        }
+        else if(currentHealth == 1)
+        {
+            heart2.gameObject.SetActive(false);
         }
     }
 
@@ -104,16 +148,6 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        /*
-        if(collision.gameObject.CompareTag("RoomCheck"))
-        {
-            
-        }
-        */
-    }
-
     void Attack()
     {
         
@@ -141,5 +175,33 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Mob") && isInvincible == false)
+        {
+            isInvincible = true;
+            moveSpeed += 5;
+            currentHealth--;
+
+            if(currentHealth <= 0)
+            {
+                //Json
+                SceneManager.LoadScene("Title");
+            }
+
+            Invoke("InvinceOff", 3f);
+        }
+    }
+
+    void InvinceOff()
+    {
+        isInvincible = false;
+        for (int i = 0; i < 10; i++)
+        {
+            moveSpeed -= 0.5f;
+        }
+
     }
 }

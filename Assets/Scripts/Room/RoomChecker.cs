@@ -6,6 +6,7 @@ public class RoomChecker : MonoBehaviour
 {
     public bool travelled = false;
     public bool inCombat = false;
+    public bool isBossRoom = false;
 
     //문들 지정
     [SerializeField]    private DoorOpener doorT;                   //위쪽 문
@@ -37,9 +38,12 @@ public class RoomChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.CompareTag("BossRoomPointer"))
+        {
+            isBossRoom = true;
+        }
 
-        if (other.gameObject.CompareTag("Player") && travelled == false)         //Compare Tag "Player" 와 충돌하였을 때 && traveled 값이 false 이면
+        if (other.gameObject.CompareTag("Player") && travelled == false && isBossRoom == false)         //Compare Tag "Player" 와 충돌하였을 때 && traveled 값이 false 이면
         {
             Invoke("StartDungeon", 0.1f);            //던전 함수를 0.1초 후 실행 || 0.1초 후에 실행하는건 문을 닫을 경우 너무 빨리 닫으면 플레이어가 못들어감
         }
@@ -53,7 +57,7 @@ public class RoomChecker : MonoBehaviour
 
         CloseAllDoors();                    //문 닫기 함수
 
-        if(mobSpawner != null)
+        if(mobSpawner != null && isBossRoom == false)
         {
             mobSpawner.mobSpawnStart();                //몹 소환 함수
             Debug.Log("소환!");
